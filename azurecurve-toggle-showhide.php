@@ -28,6 +28,7 @@ The full copy of the GNU General Public License is available here: http://www.gn
 add_shortcode( 'toggle', 'azc_toggle_show_hide' );
 add_action('wp_enqueue_scripts', 'azc_tsh_load_css');
 add_action('wp_enqueue_scripts', 'azc_tsh_load_jquery');
+add_action('plugins_loaded', 'azc_tsh_load_plugin_textdomain');
 
 function azc_tsh_load_css(){
 	wp_enqueue_style( 'azurecurve-toggle-show-hide', plugins_url( 'style.css', __FILE__ ), '', '1.0.0' );
@@ -35,6 +36,12 @@ function azc_tsh_load_css(){
 
 function azc_tsh_load_jquery(){
 	wp_enqueue_script( 'azurecurve-toggle-show-hide', plugins_url('jquery.js', __FILE__), array('jquery'), '3.9.1');
+}
+
+function azc_tsh_load_plugin_textdomain(){
+	
+	$loaded = load_plugin_textdomain( 'azurecurve-toggle-show-hide', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	//if ($loaded){ echo 'true'; }else{ echo 'false'; }
 }
 
 function azc_toggle_show_hide($atts, $content = null) {
