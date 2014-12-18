@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.azurecurve.co.uk/plugins/toggle-show-hide/
 Tags: toggle, show/hide, index
 Requires at least: 3.3
 Tested up to: 4.0.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,6 +26,8 @@ To install the plugin copy the <em>azurcurve-toggle-show-hide</em> folder into y
 
 == Changelog ==
 Changes and feature additions for the Toggle Show/Hide plugin:
+= 1.0.3 =
+* Change height in style.css to em from px
 = 1.0.2 =
 * Add expand parameter
 = 1.0.1 =
