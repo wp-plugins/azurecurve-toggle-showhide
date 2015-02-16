@@ -32,10 +32,8 @@
 	margin: auto;
     margin-bottom: 5px !important;
 	padding: 5px 15px;
-	border: 1px solid #007fff;
-	border-top: none;
+	border-right: 1px solid #007fff;
+	border-bottom: 1px solid #007fff;
+	border-left: 1px solid #007fff;
 	overflow: auto;
-}
-.bob{
-    background-image: url('images/plus.png');
 }
