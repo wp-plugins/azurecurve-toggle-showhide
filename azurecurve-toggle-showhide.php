@@ -3,7 +3,7 @@
 Plugin Name: azurecurve Toggle Show/Hide
 Plugin URI: http://wordpress.azurecurve.co.uk/plugins/toggle-show-hide
 Description: Toggle to show or hide a section of content
-Version: 1.0.3
+Version: 1.0.4
 Author: Ian Grieve
 Author URI: http://wordpress.azurecurve.co.uk
 
@@ -48,9 +48,21 @@ function azc_toggle_show_hide($atts, $content = null) {
 	
 	extract(shortcode_atts(array(
 		'title' => "Click to show/hide",
+		'expand' => 0,
+		'border' => ''
 	), $atts));
-		
-	$output = "<h3 class='azc_tsh_toggle'><a href='#'>".$title."</a></h3><div class='azc_tsh_toggle_container'>".$content."</div>";
+	
+	if($expand == 1){
+		$expand = '_open';
+		$expand_active = $expand.'_active';
+	}else{
+		$expand = '';
+	}
+	if (strlen($border) > 0){
+		$border = " style='border: $border;'";
+	}
+	
+	$output = "<h3 class='azc_tsh_toggle$expand_active'$border><a href='#'>".$title."</a></h3><div class='azc_tsh_toggle_container$expand'$border>".$content."</div>";
 	
 	return $output;
 }
