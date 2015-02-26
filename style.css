@@ -5,10 +5,10 @@
 	border: 1px solid #007fff;
     font-weight:600;
     font-size: 14px;
-    padding: 10px 10px 0 30px;
+    padding: 10px 10px 10px 30px;
     background-repeat: no-repeat;
 	background-position: 10px 10px;
-	height: 2em;
+	height: 3em;
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
