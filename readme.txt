@@ -28,7 +28,7 @@ To install the plugin copy the <em>azurcurve-toggle-show-hide</em> folder into y
 
 == Changelog ==
 Changes and feature additions for the Toggle Show/Hide plugin:
-= 1.0.4 =
+= 1.0.5 =
 * Fix bug with expand_active variable
 = 1.0.4 =
 * Add parameter to override border
