@@ -25,7 +25,7 @@
 .azc_tsh_toggle_open_active {
     background-image: url('images/minus.png');
 }
-.azc_tsh_toggle a,.azc_tsh_toggle_open a {
+.azc_tsh_toggle a,.azc_tsh_toggle_open a, .azc_tsh_toggle_open_active a {
 	color: #000;
 }
 .azc_tsh_toggle_container, .azc_tsh_toggle_container_open {
