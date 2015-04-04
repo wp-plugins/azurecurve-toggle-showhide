@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.azurecurve.co.uk/plugins/toggle-show-hide/
 Tags: toggle, show/hide, index
 Requires at least: 3.3
 Tested up to: 4.1.1
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,10 @@ Set toggle to default open using the expand parameter: [toggle expand=1]content[
 
 Override CSS border using the border parameter: [toggle border='none']content[/toggle] or [toggle border='1px dashed #FF0000']content[/toggle]
 
+Override settings title background colour using the bgtitle parameter: [toggle bgtitle='#007FFF']content[/toggle]
+
+Override settings text background colour using the bgtext parameter: [toggle bgtext='#000']content[/toggle]
+
 Shortcodes can now be used inside the content or title of the toggle (tested with Contact Form 7 and azurecurve BBCode).
 
 This plugin supports language translations. If you want to translate this plugin please sent the .po and .mo files to wordpress.translations@azurecurve.co.uk for inclusion in the next version (full credit will be given). The .pot fie is in the languages folder of the plugin and can also be downloaded from the plugin page on http://wordpress.azurecurve.co.uk.
@@ -32,6 +36,8 @@ To install the plugin copy the <em>azurcurve-toggle-showhide</em> folder into yo
 
 == Changelog ==
 Changes and feature additions for the Toggle Show/Hide plugin:
+= 1.2.0 =
+* Added background colour overrides for both the title and text parts of the toggle
 = 1.1.0 =
 * Added options page to allow title, title color and border defaults to be set at either site or network level
 * Allowing Shortcodes within toggle shortcode no longer the default; can be enabled via the Settings page

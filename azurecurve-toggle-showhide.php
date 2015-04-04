@@ -3,7 +3,7 @@
 Plugin Name: azurecurve Toggle Show/Hide
 Plugin URI: http://wordpress.azurecurve.co.uk/plugins/toggle-show-hide
 Description: Toggle to show or hide a section of content
-Version: 1.1.0
+Version: 1.2.0
 Author: Ian Grieve
 Author URI: http://wordpress.azurecurve.co.uk
 
@@ -65,12 +65,30 @@ function azc_toggle_show_hide($atts, $content = null) {
 	}else{
 		$border = "";
 	}
+	//set default bg_title
+	if (strlen($options['bg_title']) > 0){
+		$bg_title = stripslashes($options['bg_title']);
+	}elseif (strlen($network_options['bg_title']) > 0){
+		$bg_title = stripslashes($network_options['bg_title']);
+	}else{
+		$bg_title = "";
+	}
+	//set default bg_text
+	if (strlen($options['bg_text']) > 0){
+		$bg_text = stripslashes($options['bg_text']);
+	}elseif (strlen($network_options['bg_text']) > 0){
+		$bg_text = stripslashes($network_options['bg_text']);
+	}else{
+		$bg_text = "";
+	}
 	
 	extract(shortcode_atts(array(
 		'title' => $title,
 		'title_color' => $title_color,
 		'expand' => 0,
-		'border' => $border
+		'border' => $border,
+		'bgtitle' => $bg_title,
+		'bgtext' => $bg_text
 	), $atts));
 	
 	$border_style='';
@@ -82,18 +100,16 @@ function azc_toggle_show_hide($atts, $content = null) {
 		$expand = '';
 		$expand_active = '';
 	}
-	if (strlen($border) > 0){ $border = "border: $border;"; }
-	if (strlen($title_color) > 0){ $title_color = "color: $title_color;"; }
-	if (strlen($border) > 0 or strlen($title_color) > 0){
-		$link_style = " style='$title_color'";
-		$border_style = " style='$border'";
-	}
+	if (strlen($border) > 0){ $border = "border: $border; "; }
+	if (strlen($title_color) > 0){ $title_color = "color: $title_color; "; }
+	if (strlen($bgtitle) > 0){ $background_title = "background-color: $bgtitle; "; }
+	if (strlen($bgtext) > 0){ $background_text = "background: $bgtext; "; }
 	if($options['allow_shortcodes'] == 1){
 		$title = do_shortcode($title);
 		$content = do_shortcode($content);
 	}
 	
-	$output = "<h3 class='azc_tsh_toggle$expand_active'$border_style><a href='#'$link_style>$title</a></h3><div class='azc_tsh_toggle_container$expand'$border_style>$content</div>";
+	$output = "<h3 class='azc_tsh_toggle$expand_active' style='$border$background_title'><a href='#' style='$title_color'>$title</a></h3><div class='azc_tsh_toggle_container$expand' style='$border$background_text'>$content</div>";
 	
 	return $output;
 }
@@ -112,6 +128,8 @@ function azc_tsh_set_default_options($networkwide) {
 				,'title' => ''
 				,'title_color' => ''
 				,'allow_shortcodes' => 0
+				,'bg_title' => ''
+				,'bg_text' => ''
 			);
 	
 	// set defaults for multi-site
@@ -201,17 +219,25 @@ function azc_tsh_config_page() {
 				<tr><td colspan=2>
 					<p><?php _e('Set the default title and border settings. If multisite is being used leave this blank to get multisite default.', 'azurecurve-tsh'); ?></p>
 				</td></tr>
-				<tr><th scope="row"><label for="width"><?php _e('Title', 'azurecurve-tsh'); ?></label></th><td>
+				<tr><th scope="row"><label for="title"><?php _e('Title', 'azurecurve-tsh'); ?></label></th><td>
 					<input type="text" name="title" value="<?php echo esc_html( stripslashes($options['title']) ); ?>" class="large-text" />
 					<p class="description"><?php _e('Set default title text (e.g. Click here to toggle show/hide)', 'azurecurve-tsh'); ?></p>
 				</td></tr>
-				<tr><th scope="row"><label for="width"><?php _e('Title Color', 'azurecurve-tsh'); ?></label></th><td>
+				<tr><th scope="row"><label for="title_color"><?php _e('Title Color', 'azurecurve-tsh'); ?></label></th><td>
 					<input type="text" name="title_color" value="<?php echo esc_html( stripslashes($options['title_color']) ); ?>" class="large-text" />
 					<p class="description"><?php _e('Set default title color (e.g. #000)', 'azurecurve-tsh'); ?></p>
 				</td></tr>
-				<tr><th scope="row"><label for="width"><?php _e('Border', 'azurecurve-tsh'); ?></label></th><td>
+				<tr><th scope="row"><label for="border"><?php _e('Border', 'azurecurve-tsh'); ?></label></th><td>
 					<input type="text" name="border" value="<?php echo esc_html( stripslashes($options['border']) ); ?>" class="large-text" />
 					<p class="description"><?php _e('Set default border (e.g. 1px solid #00F000)', 'azurecurve-tsh'); ?></p>
+				</td></tr>
+				<tr><th scope="row"><label for="bg_title"><?php _e('Title Background Color', 'azurecurve-tsh'); ?></label></th><td>
+					<input type="text" name="bg_title" value="<?php echo esc_html( stripslashes($options['bg_title']) ); ?>" class="large-text" />
+					<p class="description"><?php _e('Set default title background color (e.g. 1px solid #00F000)', 'azurecurve-tsh'); ?></p>
+				</td></tr>
+				<tr><th scope="row"><label for="bg_text"><?php _e('Text Background Color', 'azurecurve-tsh'); ?></label></th><td>
+					<input type="text" name="bg_text" value="<?php echo esc_html( stripslashes($options['bg_text']) ); ?>" class="large-text" />
+					<p class="description"><?php _e('Set default bg_text (e.g. 1px solid #00F000)', 'azurecurve-tsh'); ?></p>
 				</td></tr>
 				<tr><th scope="row">Allow Shortcodes?</th><td>
 					<fieldset><legend class="screen-reader-text"><span><?php _e('Allow shortcodes within toggle?', 'azurecurve-tsh'); ?></span></legend>
@@ -254,6 +280,16 @@ function process_azc_tsh_options() {
 	}
 	
 	$option_name = 'border';
+	if ( isset( $_POST[$option_name] ) ) {
+		$options[$option_name] = ($_POST[$option_name]);
+	}
+	
+	$option_name = 'bg_title';
+	if ( isset( $_POST[$option_name] ) ) {
+		$options[$option_name] = ($_POST[$option_name]);
+	}
+	
+	$option_name = 'bg_text';
 	if ( isset( $_POST[$option_name] ) ) {
 		$options[$option_name] = ($_POST[$option_name]);
 	}
@@ -322,6 +358,14 @@ function azc_tsh_network_settings_page(){
 					<input type="text" name="border" value="<?php echo esc_html( stripslashes($options['border']) ); ?>" class="large-text" />
 					<p class="description"><?php _e('Set default border (e.g. 1px solid #00F000)', 'azurecurve-tsh'); ?></p>
 				</td></tr>
+				<tr><th scope="row"><label for="bg_title"><?php _e('Title Background Color', 'azurecurve-tsh'); ?></label></th><td>
+					<input type="text" name="bg_title" value="<?php echo esc_html( stripslashes($options['bg_title']) ); ?>" class="large-text" />
+					<p class="description"><?php _e('Set default title background color (e.g. 1px solid #00F000)', 'azurecurve-tsh'); ?></p>
+				</td></tr>
+				<tr><th scope="row"><label for="bg_text"><?php _e('Text Background Color', 'azurecurve-tsh'); ?></label></th><td>
+					<input type="text" name="bg_text" value="<?php echo esc_html( stripslashes($options['bg_text']) ); ?>" class="large-text" />
+					<p class="description"><?php _e('Set default bg_text (e.g. 1px solid #00F000)', 'azurecurve-tsh'); ?></p>
+				</td></tr>
 				<tr><th scope="row">Allow Shortcodes?</th><td>
 					<fieldset><legend class="screen-reader-text"><span><?php _e('Allow shortcodes within toggle?', 'azurecurve-tsh'); ?></span></legend>
 					<label for="allow_shortcodes"><input name="allow_shortcodes" type="checkbox" id="allow_shortcodes" value="1" <?php checked( '1', $options['allow_shortcodes'] ); ?> /><?php _e('Allow shortcodes within toggle?', 'azurecurve-tsh'); ?></label>
@@ -354,6 +398,16 @@ function process_azc_tsh_network_options(){
 	}
 
 	$option_name = 'border';
+	if ( isset( $_POST[$option_name] ) ) {
+		$options[$option_name] = ($_POST[$option_name]);
+	}
+
+	$option_name = 'bg_title';
+	if ( isset( $_POST[$option_name] ) ) {
+		$options[$option_name] = ($_POST[$option_name]);
+	}
+
+	$option_name = 'bg_text';
 	if ( isset( $_POST[$option_name] ) ) {
 		$options[$option_name] = ($_POST[$option_name]);
 	}
